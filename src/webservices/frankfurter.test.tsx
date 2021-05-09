@@ -5,12 +5,6 @@ import { getLatestExchangeRate } from './frankfurter';
 import { latestExchangeRate } from './urls';
 import latestExchangeRateJson from '../test/latestexchange.response.json'
 
-interface ExchangeRates {
-    amount: number,
-    base: string,
-    date: string,
-    rates: object
-}
 
 describe("Frankfurter", () => {
     let mock = new MockAdapter(axios);;
