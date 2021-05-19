@@ -5,20 +5,18 @@ import CurrencyCard from "../../components/CurrencyCard/CurrencyCard";
 
 const LandingPage = () => {
 
-    const getUniqueId = () => Math.floor(Math.random() * 100).toString();
+    const getUniqueId = () => Date.now();
 
-    const [cards, setCards] = useState([{ title: "EUR->INR", id: getUniqueId() }]);
+    const [cards, setCards] = useState([{ id: getUniqueId(), from: "EUR", to: "INR" }]);
 
-    const handleAdd = () => {
-        setCards([...cards, { title: "", id: getUniqueId() }]);
+    const handleAdd = ({ from, to }: Record<string, string>) => {
+        setCards([...cards, { id: getUniqueId(), from, to }]);
     }
 
-    return <div className="landing-page" style={{ padding: 30 }}>
+    return <div className="landing-page" data-testid="landing-page" style={{ padding: 30 }}>
         <Row gutter={[32, 16]}>
             {cards.map(card => {
-                return <Col span={5} key={card.id}>
-                    <CurrencyCard title={card.title}>EUR to INR</CurrencyCard>
-                </Col>
+                return <CurrencyCard key={card.id} from={card.from} to={card.to} ></CurrencyCard>
             })}
             <Col span={5}>
                 <AddNewCurrency handleAdd={handleAdd}></AddNewCurrency>

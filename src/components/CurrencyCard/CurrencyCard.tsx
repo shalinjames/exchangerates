@@ -1,11 +1,19 @@
 import React from 'react';
-import { Card } from 'antd';
+import { Col, Card } from 'antd';
+import CurrencyConverter from "../CurrencyConverter/CurrencyConverter"
 
 interface CurrencyCardProps {
-    title: string,
-    children: any
+    from: string,
+    to: string
 }
 
-const CurrencyCard = ({ title, children }: CurrencyCardProps) => <Card data-testid="currency-card" style={{ width: 300 }} title={title}> {children} </Card>
+const CurrencyCard = ({ from, to }: CurrencyCardProps) => {
+    return <Col span={5}>
+        <Card data-testid="currency-card" style={{ width: 300 }}>
+            <CurrencyConverter from={from} to={to} />
+        </Card>
+    </Col>
+}
+
 
 export default CurrencyCard;
