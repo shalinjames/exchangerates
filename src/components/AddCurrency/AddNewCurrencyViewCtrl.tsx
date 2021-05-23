@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { observer } from "mobx-react";
 import AddNewCurrencyView from "./AddNewCurrencyView";
 
 
@@ -20,8 +21,8 @@ const AddNewCurrencyViewCtrl = ({ viewModel }: Record<string, any>) => {
         })
     }
     // TODO: Fetch the currencies and display them here
-    return <AddNewCurrencyView onAddNew={onAddNew} onSelectChange={onSelectChange} currencies={viewModel.currencies} />
+    return <AddNewCurrencyView onAddNew={onAddNew} onSelectChange={onSelectChange} currencies={viewModel.getCurrencies()} />
 
 }
 
-export default AddNewCurrencyViewCtrl;
+export default observer(AddNewCurrencyViewCtrl);

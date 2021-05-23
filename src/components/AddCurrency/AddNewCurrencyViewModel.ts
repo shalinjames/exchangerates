@@ -15,7 +15,7 @@ class AddNewCurrencyViewModel {
     }
 
     getCurrencies() {
-        this.currenciesStore.getCurrencies();
+        return this.currenciesStore.getCurrencies();
     }
 }
 

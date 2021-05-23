@@ -2,12 +2,12 @@ import { observable, action, makeObservable } from "mobx";
 import { getCurrencies } from "../../webservices/frankfurter";
 
 class Currencies {
-    currencies: Array<Record<string, string>> = [];
+    currencies: Object = {};
 
     constructor() {
         makeObservable(this, {
             currencies: observable,
-            getCurrencies: action
+            fetchCurrencies: action
         });
         this.fetchCurrencies();
     }
@@ -19,7 +19,7 @@ class Currencies {
     fetchCurrencies() {
         getCurrencies()
             .then(currencies => {
-                this.currencies.concat(currencies);
+                this.currencies = currencies;
             })
     }
 }

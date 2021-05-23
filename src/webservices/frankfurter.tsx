@@ -16,7 +16,7 @@ export const getLatestExchangeRate = ({ amount, from, to }: Record<string, any>)
     });
 };
 
-export const getCurrencies = (): Promise<Array<any>> => {
+export const getCurrencies = (): Promise<Object> => {
     return new Promise((resolve, reject) => {
         axios.get(currenciesUrl)
             .then(response => resolve(response.data))
