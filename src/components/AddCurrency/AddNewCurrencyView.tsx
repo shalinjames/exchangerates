@@ -1,19 +1,17 @@
 import React from "react";
 import { Button, Card } from "antd";
-import currenciesResponseJson from "../../test/currencies.response.json"
 import CurrencySelectBox from "../UI/CurrencySelectBox"
 
-const AddNewCurrencyView = ({ onAddNew, onSelectChange }: Record<string, any>) => {
-    const currenciesJson: Record<string, string> = { ...currenciesResponseJson };
+const AddNewCurrencyView = ({ onAddNew, onSelectChange, currencies }: Record<string, any>) => {
     return <Card style={{ width: 300 }}>
         <CurrencySelectBox
             id="from"
-            currencies={currenciesJson}
+            currencies={currencies}
             onSelectChange={(value: string) => onSelectChange(value, 'from')}
             placeholder="From" />
         <CurrencySelectBox
             id="to"
-            currencies={currenciesJson}
+            currencies={currencies}
             onSelectChange={(value: string) => onSelectChange(value, 'to')}
             placeholder="To" />
         <Button

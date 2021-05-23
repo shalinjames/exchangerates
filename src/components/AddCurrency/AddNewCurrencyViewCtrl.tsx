@@ -14,14 +14,13 @@ const AddNewCurrencyViewCtrl = ({ viewModel }: Record<string, any>) => {
     }
 
     const onSelectChange = (value: string, name: string) => {
-        console.log(value);
         setCurrencies({
             ...currencies,
             [name]: value
         })
     }
     // TODO: Fetch the currencies and display them here
-    return <AddNewCurrencyView onAddNew={onAddNew} onSelectChange={onSelectChange} />
+    return <AddNewCurrencyView onAddNew={onAddNew} onSelectChange={onSelectChange} currencies={viewModel.currencies} />
 
 }
 
