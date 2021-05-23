@@ -1,24 +1,32 @@
-import { observable, action, makeObservable } from "mobx"
+import { observable, action, makeObservable } from "mobx";
+import { getLatestExchangeRate } from "../../webservices/frankfurter";
 
 class CurrencyConversions {
 
     getUniqueId = () => Date.now();
 
-    conversions = [{ id: this.getUniqueId(), from: "EUR", to: "INR" }];
+    conversions: Array<any> = [];
 
     constructor() {
         makeObservable(this, {
             conversions: observable,
             addConversion: action
-        })
+        });
+        this.addConversion({ from: "EUR", to: "INR" });
     }
 
     addConversion(conversion: any) {
-        this.conversions.push({
-            ...conversion,
-            id: this.getUniqueId()
+        getLatestExchangeRate({
+            amount: 1,
+            ...conversion
+        }).then(amount => {
+            this.conversions.push({
+                ...conversion,
+                id: this.getUniqueId(),
+                conversion: amount
+            });
+
         });
-        console.log(this.conversions);
     }
 
     getConversions() {

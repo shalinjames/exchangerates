@@ -8,7 +8,6 @@ const AddNewCurrencyViewCtrl = ({ viewModel }: Record<string, any>) => {
 
     const onAddNew = () => {
         const { from, to } = currencies;
-        console.log(currencies);
         if (from && to && from !== to) {
             viewModel.addNewConversion(currencies);
         }
@@ -20,7 +19,6 @@ const AddNewCurrencyViewCtrl = ({ viewModel }: Record<string, any>) => {
             [name]: value
         })
     }
-    // TODO: Fetch the currencies and display them here
     return <AddNewCurrencyView onAddNew={onAddNew} onSelectChange={onSelectChange} currencies={viewModel.getCurrencies()} />
 
 }

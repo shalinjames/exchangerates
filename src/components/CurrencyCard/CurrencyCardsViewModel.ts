@@ -1,13 +1,18 @@
+import RootStore from "../../models/RootStore";
 
 class CurrencyCardsViewModel {
-    store;
-    constructor(store: any) {
-        this.store = store;
+
+    currenciesStore;
+    conversionStore;
+
+    constructor(rootStore: any) {
+        this.currenciesStore = rootStore[RootStore.type.CURRENCIES];
+        this.conversionStore = rootStore[RootStore.type.CURRENCY_CONVERSIONS];
     }
 
-    getConversions = () => {
-        return this.store.conversions;
-    }
+    getConversions = () => this.conversionStore.getConversions();
+
+    getCurrencies = () => this.currenciesStore.getCurrencies();
 }
 
 export default CurrencyCardsViewModel;

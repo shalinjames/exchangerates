@@ -4,13 +4,14 @@ import CurrencyConverter from "../CurrencyConverter/CurrencyConverter"
 
 interface CurrencyCardProps {
     from: string,
-    to: string
+    to: string,
+    conversion: string
 }
 
-const CurrencyCard = ({ from, to }: CurrencyCardProps) => {
+const CurrencyCard = (props: CurrencyCardProps) => {
     return <Col span={5}>
         <Card data-testid="currency-card" style={{ width: 300 }}>
-            <CurrencyConverter from={from} to={to} />
+            <CurrencyConverter {...props} />
         </Card>
     </Col>
 }
