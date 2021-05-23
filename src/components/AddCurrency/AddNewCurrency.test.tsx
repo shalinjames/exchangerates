@@ -1,13 +1,13 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import AddNewCurrency from "./AddNewCurrency";
+import AddNewCurrencyViewCtrl from "./AddNewCurrencyViewCtrl";
 
 describe("When AddNewCurrency component is render", () => {
 
     let handleAdd;
     beforeEach(() => {
         handleAdd = jest.fn();
-        render(<AddNewCurrency handleAdd={handleAdd} />);
+        render(<AddNewCurrencyViewCtrl handleAdd={handleAdd} />);
     });
 
     test("Should render the card with button as a child", () => {
