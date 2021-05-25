@@ -1,72 +1,63 @@
 import React from "react";
-import { fireEvent, render, screen, act, queryByAttribute } from "@testing-library/react";
+import { fireEvent, render, screen, act } from "@testing-library/react";
 import AddNewCurrencyViewCtrl from "../AddNewCurrencyViewCtrl";
 
 describe("<AddNewCurrency />", () => {
+    let viewModel: Record<string, any> = {
+        getCurrencies: null,
+        addNewConversion: null
+    }
 
     let currencies = { "AUD": "Australian Dollar", "CAD": "Canadian Dollar", "USD": "United States Dollar", "EUR": "Euro" };
 
-    const renderComponent = (viewModel) => {
-        let component;
-        act(() => { component = render(<AddNewCurrencyViewCtrl viewModel={viewModel} />); });
-        return component;
-    };
-
-    test("Should render the card with the currencies select box", () => {
-        const viewModel = {
+    const renderComponent = () => {
+        viewModel = {
             getCurrencies: jest.fn().mockReturnValue(currencies),
             addNewConversion: jest.fn()
         };
-        renderComponent(viewModel);
+        act(() => { render(<AddNewCurrencyViewCtrl viewModel={viewModel} />) });
+    };
 
+    test("Should render the card with the currencies select box from and two", () => {
+        renderComponent();
         const listboxComponents = screen.queryAllByRole("combobox");
         expect(listboxComponents.length).toEqual(2);
-        const ids = listboxComponents.map(element => {
-            expect(element).toBeVisible();
-            return element.getAttribute("id");
-        });
+        const ids = listboxComponents.map(select => select.getAttribute("name"));
         expect(ids).toEqual(["from", "to"]);
 
     });
 
     test("Should list the currencies provided in the select box", () => {
-        const viewModel = {
-            getCurrencies: jest.fn().mockReturnValue(currencies),
-            addNewConversion: jest.fn()
-        };
-        renderComponent(viewModel);
+        renderComponent();
 
         expect(viewModel.getCurrencies).toHaveBeenCalled();
         const listboxComponents = screen.queryAllByRole("combobox");
         const firstElement = listboxComponents.shift();
-        act(() => { fireEvent.mouseDown(firstElement) });
-        Object.values(currencies).forEach(currency => {
-            const regex = new RegExp(currency);
-            expect(screen.queryByText(regex)).toBeInTheDocument();
+        expect(firstElement?.childNodes.length).toEqual(Object.keys(currencies).length);
+        const options: Array<string> = [];
+        firstElement?.childNodes.forEach(node => {
+            const tuple = node.textContent?.split("-");
+            options.push(tuple?.shift() as string);
         });
+        expect(options).toEqual(Object.keys(currencies));
     });
 
     test("Should call the onAdd callback", () => {
-        const viewModel = {
-            getCurrencies: jest.fn().mockReturnValue(currencies),
-            addNewConversion: jest.fn()
-        };
-        renderComponent(viewModel);
+        const options = ["EUR", "USD"];
+        renderComponent();
 
         expect(viewModel.getCurrencies).toHaveBeenCalled();
         const listboxComponents = screen.queryAllByRole("combobox");
-        const firstElement = listboxComponents.shift();
-        const secondElement = listboxComponents.shift();
-        act(() => { fireEvent.mouseDown(firstElement) });
-        const usdOption = screen.queryByText(new RegExp(currencies.USD));
+
+        listboxComponents.forEach((select, index) => {
+            const event = { target: { value: options[index] } };
+            act(() => { fireEvent.change(select, event) });
+        });
 
         act(() => {
-            fireEvent.click(usdOption);
-            fireEvent.mouseDown(secondElement);
+            const buttonElement = screen.queryByRole("button")
+            fireEvent.click(buttonElement as HTMLElement)
         });
-        const cadOption = screen.queryAllByText(new RegExp(currencies.CAD));
-        act(() => { fireEvent.click(cadOption[1]) });
-        act(() => { fireEvent.click(screen.queryByRole("button")) });
         expect(viewModel.addNewConversion).toHaveBeenCalled();
     });
 });
