@@ -1,5 +1,3 @@
-import RootStore from "../../models/RootStore";
-
 class CurrencyConverterViewModel {
     currenciesStore;
 

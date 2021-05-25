@@ -8,12 +8,14 @@ const AddNewCurrencyViewCtrl = ({ viewModel }: Record<string, any>) => {
 
     const onAddNew = () => {
         const { from, to } = currencies;
+        console.log("Button AddNew Clicked!!", currencies);
         if (from && to && from !== to) {
             viewModel.addNewConversion(currencies);
         }
     }
 
-    const onSelectChange = (value: string, name: string) => {
+    const onSelectChange = (event: any) => {
+        const { value, name } = event.target;
         setCurrencies({
             ...currencies,
             [name]: value

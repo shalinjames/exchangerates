@@ -1,11 +1,10 @@
 import React from "react";
-import { Typography } from 'antd';
+import { Typography } from "@material-ui/core";
 
 const CurrencyConverterView = ({ conversion, displayValueFrom, displayValueTo }: Record<string, any>) => {
-    const { Text, Title } = Typography;
     return <React.Fragment>
-        <Text type="secondary"> 1 {displayValueFrom} Equals </Text>
-        <Title level={3}> {conversion} {displayValueTo} </Title>
+        <Typography variant="h4"> 1 {displayValueFrom} Equals </Typography>
+        <Typography variant="subtitle1"> {conversion} {displayValueTo} </Typography>
     </React.Fragment>
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Card } from 'antd';
+import { Grid, Card, CardContent } from "@material-ui/core"
 import CurrencyConverter from "../CurrencyConverter/CurrencyConverter"
 
 interface CurrencyCardProps {
@@ -9,11 +9,13 @@ interface CurrencyCardProps {
 }
 
 const CurrencyCard = (props: CurrencyCardProps) => {
-    return <Col span={5}>
+    return <Grid item xs>
         <Card data-testid="currency-card" style={{ width: 300 }}>
-            <CurrencyConverter {...props} />
+            <CardContent>
+                <CurrencyConverter {...props} />
+            </CardContent>
         </Card>
-    </Col>
+    </Grid>
 }
 
 
