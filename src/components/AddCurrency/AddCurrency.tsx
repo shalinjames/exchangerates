@@ -6,10 +6,7 @@ import AddNewCurrencyViewModel from "./AddNewCurrencyViewModel";
 
 const AddCurrency = () => {
     const rootStore = useContext(RootStoreContext);
-    const conversionModel = new AddNewCurrencyViewModel({
-        [RootStore.type.CURRENCY_CONVERSIONS]: rootStore[RootStore.type.CURRENCY_CONVERSIONS],
-        [RootStore.type.CURRENCIES]: rootStore[RootStore.type.CURRENCIES],
-    })
+    const conversionModel = new AddNewCurrencyViewModel(rootStore);
     return <AddNewCurrencyViewCtrl viewModel={conversionModel} />
 };
 

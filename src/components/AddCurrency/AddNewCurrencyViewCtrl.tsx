@@ -8,7 +8,6 @@ const AddNewCurrencyViewCtrl = ({ viewModel }: Record<string, any>) => {
 
     const onAddNew = () => {
         const { from, to } = currencies;
-        console.log("Button AddNew Clicked!!", currencies);
         if (from && to && from !== to) {
             viewModel.addNewConversion(currencies);
         }

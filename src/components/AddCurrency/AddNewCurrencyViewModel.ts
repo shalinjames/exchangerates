@@ -3,11 +3,9 @@ import RootStore from "../../models/RootStore";
 class AddNewCurrencyViewModel {
     conversionStore;
     currenciesStore;
-    constructor({ [RootStore.type.CURRENCY_CONVERSIONS]: conversionStore,
-        [RootStore.type.CURRENCIES]: currenciesStore }:
-        Record<string, any>) {
-        this.conversionStore = conversionStore;
-        this.currenciesStore = currenciesStore;
+    constructor(rootStore: any) {
+        this.conversionStore = rootStore[RootStore.type.CURRENCY_CONVERSIONS];
+        this.currenciesStore = rootStore[RootStore.type.CURRENCIES];
     }
 
     addNewConversion(conversion: any) {
