@@ -9,7 +9,7 @@ const LandingPage = () => {
         <div className="landing-page" data-testid="landing-page" style={{ padding: 30 }}>
             <Grid container spacing={3}>
                 <CurrencyCards />
-                <Grid xs><AddCurrency /></Grid>
+                <Grid xs item={true}><AddCurrency /></Grid>
             </Grid>
         </div>
     </RootStoreContextProvider>
